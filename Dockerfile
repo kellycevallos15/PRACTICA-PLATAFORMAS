@@ -1,5 +1,5 @@
 # Usamos 'alpine' que es una versión súper ligera de Linux (ocupa menos RAM)
-FROM node:22-alpine
+FROM node:20-slim
 
 # Crear directorio de la aplicación
 WORKDIR /usr/src/app
