@@ -1,15 +1,17 @@
-# Dockerfile
-FROM node:22
+# Usamos 'alpine' que es una versión súper ligera de Linux (ocupa menos RAM)
+FROM node:22-alpine
 
 # Crear directorio de la aplicación
 WORKDIR /usr/src/app
 
-# Copiar archivos al contenedor
+# Copiar SOLO los archivos de dependencias primero
 COPY package*.json ./
-COPY index.js .
 
-# Instalar dependencias
-RUN npm install
+# Instalar SÓLO lo necesario para producción (ignora eslint y cosas pesadas)
+RUN npm install --omit=dev
+
+# Copiar el resto de tus archivos (index.js, users.json, etc.)
+COPY . .
 
 # Exponer el puerto de la aplicación
 EXPOSE 3000
