@@ -1,10 +1,6 @@
 pipeline {
     agent any
 
-    tools {
-        nodejs "Node25" // Mantenemos tu configuración de Node.js intacta
-    }
-
     stages {
         stage('Preparar Docker CLI') {
             steps {
