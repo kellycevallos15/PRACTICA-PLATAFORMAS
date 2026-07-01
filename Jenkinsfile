@@ -12,10 +12,15 @@ pipeline {
             }
         }
 
-        stage('Construir Imagen Docker') {
+      stage('Construir Imagen Docker') {
             steps {
-                // Usamos el ejecutable que acabamos de extraer en la carpeta actual
-                sh './docker/docker build -t hola-mundo-node:latest .'
+                sh '''
+                    # 1. Borramos la basura temporal a la fuerza para liberar RAM
+                    rm -rf node_modules
+                    
+                    # 2. Construimos la imagen (ahora el peso será de unos pocos KB)
+                    ./docker/docker build -t hola-mundo-node:latest .
+                '''
             }
         }
 
