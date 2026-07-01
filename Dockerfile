@@ -5,7 +5,7 @@ FROM node:20-slim
 WORKDIR /usr/src/app
 
 # Copiar SOLO los archivos de dependencias primero
-COPY package*.json ./
+COPY package.json ./
 
 # Instalar SÓLO lo necesario para producción (ignora eslint y cosas pesadas)
 RUN npm install --omit=dev

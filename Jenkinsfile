@@ -15,8 +15,9 @@ pipeline {
       stage('Construir Imagen Docker') {
             steps {
                 sh '''
-                    # 1. Borramos la basura temporal a la fuerza para liberar RAM
                     rm -rf node_modules
+                    # ¡Agregamos --no-cache aquí!
+                    ./docker/docker build --no-cache -t hola-mundo-node:latest .
                     
                     # 2. Construimos la imagen (ahora el peso será de unos pocos KB)
                     ./docker/docker build -t hola-mundo-node:latest .
