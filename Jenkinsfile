@@ -2,14 +2,24 @@ pipeline {
     agent any
 
     tools {
-        nodejs "Node25" // Configura una instalación de Node.js en Jenkins
-        dockerTool 'Dockertool'  // Cambia el nombre de la herramienta según tu configuración en Jenkins
+        nodejs "Node25" // Mantenemos tu configuración de Node.js intacta
     }
 
     stages {
+        stage('Preparar Docker CLI') {
+            steps {
+                sh '''
+                    # Descargar y extraer el cliente de Docker versión 24.0.9 manualmente
+                    curl -fsSLO https://download.docker.com/linux/static/stable/x86_64/docker-24.0.9.tgz
+                    tar xzvf docker-24.0.9.tgz
+                '''
+            }
+        }
+
         stage('Construir Imagen Docker') {
             steps {
-                sh 'docker build -t hola-mundo-node:latest .'
+                // Usamos el ejecutable que acabamos de extraer en la carpeta actual
+                sh './docker/docker build -t hola-mundo-node:latest .'
             }
         }
 
@@ -17,11 +27,11 @@ pipeline {
             steps {
                 sh '''
                     # Detener y eliminar cualquier contenedor previo
-                    docker stop hola-mundo-node || true
-                    docker rm hola-mundo-node || true
+                    ./docker/docker stop hola-mundo-node || true
+                    ./docker/docker rm hola-mundo-node || true
 
                     # Ejecutar el contenedor de la aplicación
-                    docker run -d --name hola-mundo-node -p 3000:3000 hola-mundo-node:latest
+                    ./docker/docker run -d --name hola-mundo-node -p 3000:3000 hola-mundo-node:latest
                 '''
             }
         }
