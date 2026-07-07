@@ -8,7 +8,7 @@ WORKDIR /usr/src/app
 COPY package.json ./
 
 # Instalar SÓLO lo necesario para producción (ignora eslint y cosas pesadas)
-RUN npm install --omit=dev
+RUN npm install 
 
 # Copiar el resto de tus archivos (index.js, users.json, etc.)
 COPY . .

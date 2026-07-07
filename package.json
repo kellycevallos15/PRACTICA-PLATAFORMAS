@@ -4,9 +4,11 @@
     "description": "Mi aplicación Node.js",
     "main": "index.js",
     "scripts": {
-      "start": "node index.js"
+        "test": "jest"
     },
-    "dependencies": {
-      "express": "^4.18.2"
+    "devDependencies": {
+        "express": "^5.2.1",
+        "jest": "^30.4.2",
+        "supertest": "^7.2.2"
     }
-  }
+}
